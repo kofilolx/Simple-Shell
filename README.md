@@ -16,7 +16,7 @@ The Simple Shell functions as a fundamental command-line shell capable of execut
 
 ## Project Tasks
 
-- Task 0: Eliciting pride from Betty
+- [x] Task 0: Eliciting pride from Betty
 - Task 1: Simple shell 0.1
 - Task 2: Simple shell 0.2
 - Task 3: Simple shell 0.3
