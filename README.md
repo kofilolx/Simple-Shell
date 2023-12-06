@@ -6,6 +6,14 @@ This serves as a straightforward Unix command line interpreter crafted as a comp
 
 The Simple Shell functions as a fundamental command-line shell capable of executing basic Unix commands. It is meticulously designed to fulfill the project's specifications and educational objectives. The project encompasses various tasks, each progressively building upon the previous one to augment the shell's capabilities.
 
+
+#Table of Contents
+1. [Project](#Project_tasks)
+2. [Instruction](#Getting_Started)
+3. [Prerequisites](#prerequisites)
+4. [Usage](#Installation)
+
+
 ## Project Tasks
 
 - Task 0: Eliciting pride from Betty
