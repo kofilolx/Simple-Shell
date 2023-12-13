@@ -33,7 +33,7 @@ int wsh_val_path(char**arg,  char **env);
 
 /*============================= Builtins ====================*/
 
-int wsh_cdir(char **args);
+/* int wsh_cdir(char **args); */
 int wsh_exit(char **args);
 int wsh_help(char **args);
 int wsh_ctrl(char **args);

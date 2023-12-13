@@ -13,7 +13,7 @@ int (*function_built[]) (char **) = {
         &wsh_help,
         &wsh_exit,
         &wsh_ctrl,
-        &wsh_cdir
+        /* &wsh_cdir */
 };
 
 /* wsh_builtins - Builins

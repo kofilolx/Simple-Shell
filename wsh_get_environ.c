@@ -1,4 +1,4 @@
-#include "shell.c"
+#include "shell.h"
 
 /**
  * wsh_get_environ - Prints environment variables to standard output.
