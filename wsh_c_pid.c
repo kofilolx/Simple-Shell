@@ -36,13 +36,13 @@ int wsh_process(char **arg, char **av, char **env, char *line_ptr, int p_id, int
 		return (1);
 	}
 
-	for (itr = 0; itr < wsh_builts(); itr++)
+	 /*for (itr = 0; itr < wsh_builts(); itr++)
 	{
 		if (strcmp(arg[0], builtin_lineptr[itr]) == 0)
 		{
 			return (function_built[itr](arg));
 		}
-	}
+	}*/
 
 	/* Initiation of child process using fork */
 	c_pid = fork();
@@ -50,9 +50,9 @@ int wsh_process(char **arg, char **av, char **env, char *line_ptr, int p_id, int
 	/* Error handling */
 	if (c_pid == 0)
 	{
-		exec_stat = execve(arg[0], arg, env);
+		execve_stat = execve(arg[0], arg, env);
 
-		if (exec_stat == -1)
+		if (execve_stat == -1)
 		{
 			fprintf(stderr, specifiers, av[0], p_id, arg[0]);
 			if (!check)

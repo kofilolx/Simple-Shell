@@ -27,7 +27,7 @@ void wsh_get_environ(char **env)
 		 * Use the wsh_str_len function to determine the length of the string.
 		 */
 
-		write(STDOUT_FILENO, env[itr], srtlen(env[itr]));
+		write(STDOUT_FILENO, env[itr], strlen(env[itr]));
 
 		/*
 		 * Write a newline character to separate environment variables.
@@ -40,5 +40,5 @@ void wsh_get_environ(char **env)
 	}
 
 	/* Return 0 to indicate successful execution */
-	return (0);
+	/* return (0); */
 }

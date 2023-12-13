@@ -8,7 +8,7 @@
  * Return: Always returns -1 to indicate to the main shell loop that the
  *         program should exit.
  */
-int wsh_exit(void)
+int wsh_exit(char **args)
 {
 	/*
 	 * Return -1 to signal the main shell loop that the program
