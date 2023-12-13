@@ -20,7 +20,7 @@ int main(int argc, char **arg, char **env)
 	int TRUE = 1;					/* Boolean for the main loop */
 
 
-/*	void(argc);*/					 /* Suppress unused argument warning */
+	(void)argc;					 /* Suppress unused argument warning */
 	while (TRUE)
 	{
 

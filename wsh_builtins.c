@@ -43,11 +43,12 @@ int wsh_cd(char **args)
 			perror("wicksh: cd");
 		}
 	}
+	return (1);
 }
 
 int wsh_ctrl(char **args)
 {
-
+	(void)args;
 	free(args);
 	return (BUF);
 }

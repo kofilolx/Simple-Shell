@@ -14,6 +14,6 @@ int wsh_exit(char **args)
 	 * Return -1 to signal the main shell loop that the program
 	 * should terminate.
 	 */
-
+	(void)args;
 	return (-1);
 }

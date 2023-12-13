@@ -24,10 +24,10 @@
 int wsh_process(char **arg, char **av, char **env, char *line_ptr, int p_id, int check)
 {
 	pid_t c_pid;					/* Process ID of the child */
-	int execve_stat, itr;				/* Status of the execve system call */
+	int execve_stat;				/* Status of the execve system call */
 	int stat;					/* Status of the child process */
 	char *specifiers;				/* Demiliters */
-	char **environ;				/* Environment variables for execve */
+	/* char **environ;	*/			/* Environment variables for execve */
 
 	specifiers = "%d: %s: missing\n";
 

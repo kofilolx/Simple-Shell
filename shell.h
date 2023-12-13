@@ -22,6 +22,7 @@ int wsh_str_ncmp(char *name, char *variable, unsigned int length);
 */
 
 /*----------------Function Prototype | Shell Main-------------------------*/
+int main(int argc, char **argv, char **env);
 int wsh_process(char **arg, char **av, char **env, char *line_ptr, int p_id, int check);
 char *wsh_path(char **envp);
 char *wsh_getline(void);
