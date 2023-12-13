@@ -71,7 +71,7 @@ int wsh_process(char **arg, char **av, char **env, char *line_ptr, int p_id, int
 	}
 	else
 	{
-		perror("Wicksh");			/* Print wicksh to std output*/
+		perror("hsh ");			/* Print wicksh to std output*/
 		exit(EXIT_FAILURE);
 	}
 

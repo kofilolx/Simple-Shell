@@ -15,5 +15,5 @@ int wsh_exit(char **args)
 	 * should terminate.
 	 */
 	(void)args;
-	return (-1);
+	exit(0);
 }
