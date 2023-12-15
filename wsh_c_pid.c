@@ -1,4 +1,5 @@
 #include "shell.h"
+#include "wsh_builts.h"
 
 /**
  * wsh_process - Executes a command in a child process.
@@ -27,6 +28,7 @@ int wsh_process(char **arg, char **av, char **env, char *line_ptr, int p_id, int
 	int execve_stat;				/* Status of the execve system call */
 	int stat;					/* Status of the child process */
 	char *specifiers;				/* Demiliters */
+	int itr;
 	/* char **environ;	*/			/* Environment variables for execve */
 
 	specifiers = "%d: %s: missing\n";
@@ -36,13 +38,14 @@ int wsh_process(char **arg, char **av, char **env, char *line_ptr, int p_id, int
 		return (1);
 	}
 
-	 /*for (itr = 0; itr < wsh_builts(); itr++)
+	for (itr = 0; itr < wsh_builts(); itr++)
 	{
-		if (strcmp(arg[0], builtin_lineptr[itr]) == 0)
+		if (strcmp(arg[0], builtins[itr].nom) == 0)
 		{
-			return (function_built[itr](arg));
+			builtins[itr].ops(arg);
+			return (0);
 		}
-	}*/
+	}
 
 	/* Initiation of child process using fork */
 	c_pid = fork();
@@ -71,9 +74,9 @@ int wsh_process(char **arg, char **av, char **env, char *line_ptr, int p_id, int
 	}
 	else
 	{
-		perror("hsh ");			/* Print wicksh to std output*/
+		perror("Wicksh");			/* Print wicksh to std output*/
 		exit(EXIT_FAILURE);
 	}
 
-	return (0); /* Return 0 on success */
+	return (1); /* Return 0 on success */
 }

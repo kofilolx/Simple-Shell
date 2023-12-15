@@ -17,7 +17,7 @@ int wsh_val_path(char **arg, char **env)
 
 	struct stat _line_ptr;
 
-    /* Check if the command is already an absolute path */
+    /* Check if the command is in the path */
 	if (stat(*arg, &_line_ptr) == 0)
 	{
 		return (-1);
@@ -55,24 +55,27 @@ int wsh_val_path(char **arg, char **env)
 		/* Copy the current token to the absolute path*/
 		path_absolute = strcpy(path_absolute, token);
 
-        /* Concatenate "/" and the command to form the absolute path */
-        	strcat(path_absolute, "/");
-	        strcat(path_absolute, *arg);
+		/* absolute path */
+		strcat(path_absolute, "/");
 
-        /* Check if the absolute path exists*/
-        	if (stat(path_absolute, &_line_ptr) == 0)
+		strcat(path_absolute, *arg);
+		/* Check if the absolute path exists*/
+		if (stat(path_absolute, &_line_ptr) == 0)
         	{
-			*arg = path_absolute;	/*Update the command with the absolute path */
+			*arg = path_absolute;
+			/*Update the command with the absolute path */
+
 			free(path_relative);
 			return (0);
 		}
 		/* Free the memory allocated for the absolute path*/
 		free(path_absolute);
+
 		/* Move to the next token in the PATH variable */
 		token = strtok(NULL, ":");
 	}
 
-	/* Set token to NULL and free the memory allocated for path_relative */
+	/* Free the memory allocated for path_relative */
 
 	token = '\0';
 	free(path_relative);

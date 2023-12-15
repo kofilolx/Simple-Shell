@@ -7,6 +7,7 @@
  * the `environ` array and prints each
  * environment variable followed by a newline
  * character to the standard output.
+ * @env: Enviroment variable
  *
  * Return: Always returns 0 to indicate successful execution.
  */

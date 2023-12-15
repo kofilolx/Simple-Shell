@@ -1,114 +1,83 @@
 #include "shell.h"
 #include <errno.h>
 
-#define BUF 200
 
 /**
- * cleanup - Frees allocated memory for lines and bufline.
- * @lines: User input.
- * @bufline: Tokenized command.
- */
-void cleanup(char *lines, char **bufline)
-{
-	free(lines);
-
-	if (bufline)
-	{
-		free(bufline[0]);
-		/* free(bufline);*/
-	}
-}
-
-/**
- * handle_cmd - Handles the 'env' command.
+ * main - Entry point for the shell program.
+ *
+ * @argc: Number of arguments.
+ * @arg: Array of command-line arguments.
  * @env: Array of environment variables.
+ * Return: Always 0 (Success).
  */
-void handle_env_cmd(char **env)
-{
-	wsh_get_environ(env);
-}
 
-/**
- * handle_cmd - Handles commands other than 'env'.
- * @bufline: Tokenized command.
- * @arg: Command-line arguments.
- * @env: Array of environment variables.
- * @lines: User input.
- * @p_val: Process value.
- */
-void handle_cmd(char **bufline, char **arg, char **env, char *lines, int p_val)
-{
-	int boolPath = wsh_val_path(&bufline[0], env);
-	int stat = wsh_process(bufline, arg, env, lines, p_val, boolPath);
 
-	if (stat == BUF)
-	{
-		cleanup(lines, bufline);
-		exit(0);
-	}
-
-	if (boolPath == 0)
-		free(bufline[0]);
-}
-
-/**
- * main - Entry point of the shell.
- * @argc: Number of command-line arguments.
- * @arg: Command-line arguments.
- * @env: Array of environment variables.
- * Return: Status code.
- */
 int main(int argc, char **arg, char **env)
 {
-	int p_val = 0;
-	int stat = 0;
-	int boolPath;
-	char *lines = NULL;
-	char **bufline = NULL;
-	int TRUE = 1;
+	int p_val, stat, boolPath;			/* Process Value, Status, Path Check */
+	char *lines = NULL;				/* User input */
+	char **bufline = NULL;				/* Command */
+	int TRUE = 1;					/* Boolean for the main loop */
 
-	(void)argc;  /* Suppress unused argument warning */
 
+	(void)argc;					 /* Suppress unused argument warning */
 	while (TRUE)
 	{
-		lines = wsh_getline();
+
+		lines = wsh_getline();			/* Takes User Input */
 		errno = 0;
 
+		/* Check if there was an error or if the user entered EOF */
 		if (errno == 0 && lines == NULL)
 		{
 			return (0);
 		}
+
 
 		if (lines)
 		{
 			p_val++;
 			bufline = wsh_tokenize(lines);
 
+			/* Free user input if it cannot be tokenized */
 			if (!bufline)
 			{
-				cleanup(lines, NULL);
+				free(lines);
+			}
+
+			/* Check if the command is 'env' */
+			if (!strncmp(bufline[0], "env", strlen("env")))
+			{
+				wsh_get_environ(env);
 			}
 			else
 			{
-				if (!strncmp(bufline[0], "env", strlen("env")))
+				boolPath = wsh_val_path(&bufline[0], env);
+
+				stat = wsh_process(bufline, arg, env, lines, p_val, boolPath);
+
+				/* Check for a special status BUF (buffer overflow) */
+				if (stat == BUF)
 				{
-					handle_env_cmd(env);
-				}
-				else
-				{
-					handle_cmd(bufline, arg, env, lines, p_val);
+					free(lines);
+					return (0);
 				}
 
-				cleanup(lines, bufline);
+				/* Free the command if it is not in the PATH */
+				if (boolPath == 0)
+					free(bufline[0]);
 			}
+			free(bufline);
 		}
 		else
 		{
+
+			/* Check if the input is from a terminal and print a new line */
 			if (isatty(STDIN_FILENO))
 				write(STDOUT_FILENO, "\n", 1);
 			exit(stat);
 		}
+		free(lines);
 	}
-
 	return (stat);
 }
