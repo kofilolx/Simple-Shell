@@ -1,35 +1,21 @@
 #include "shell.h"
+
 /**
- * built_s - Structure representing a built-in command
+ * wsh_builtins_count - Returns the number of built-in commands.
  *
- * @name: The name of the built-in command.
- * @p: Pointer to the corresponding function
- * to execute for the built-in command.
+ * Return: total number of builtin commands
  */
-
-char *builtin_lineptr[] = {"cd", "help", "exit", "NULL"};
-
-int (*function_built[]) (char **) = {
-        &wsh_help,
-        &wsh_exit,
-        &wsh_ctrl,
-        /* &wsh_cdir */
-};
-
-/* wsh_builtins - Builins
- *
- */
-
-int wsh_builts(void)
+int wsh_builtins_count(void)
 {
-	return (sizeof(builtin_lineptr) / sizeof(char *));
+	return (sizeof(builtins) / sizeof(struct built_s) - 1;);
 }
 
-
-/* wsh_cd - builtins
+/**
+ * wsh_cd - Builtin command for changing the current directory.
+ * @args: User input
  *
+ * Return: 1 Always on Success
  */
-
 int wsh_cd(char **args)
 {
 	if (args[1] == NULL)
@@ -46,13 +32,26 @@ int wsh_cd(char **args)
 	return (1);
 }
 
+/**
+ * wsh_ctrl - Builtin command for ctrl.
+ * @args: User input
+ *
+ * Return: return BUF on success
+ */
 int wsh_ctrl(char **args)
 {
 	(void)args;
+
 	free(args);
 	return (BUF);
 }
 
+/**
+ * wsh_help - Builtin command for displaying help information.
+ * @args: User input
+ *
+ * Return: 1 Always on success
+ */
 int wsh_help(char **args)
 {
 	int itr;
@@ -60,9 +59,10 @@ int wsh_help(char **args)
 	printf("Use man Pages\n");
 
 	(void)args;
-	for (itr = 0; itr < wsh_builts(); itr++)
+
+	for (itr = 0; builtins[itr].name != NULL; itr++)
 	{
-		printf("%s \n", builtin_lineptr[itr]);
+		printf("%s \n", builtins[itr].name);
 	}
 	return (1);
 }
